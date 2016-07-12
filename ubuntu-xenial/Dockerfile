@@ -2,25 +2,35 @@ FROM ubuntu:xenial
 MAINTAINER Carl Saturnino
 
 RUN apt-get update
-RUN apt-get install -y wget \
-      libdumbnet-dev \
-      libevent-1.4-2 \
+RUN apt-get install -y build-essential \
       libpcap-dev \
-      farpd \
-      libdnet \
+      libdnet-dev \
       libevent-dev \
       libpcre3-dev \
+      make \
+      bzip2 \
+      nmap \
+      psmisc \
+      libtool \
+      libdumbnet-dev \
+      zlib1g-dev \
+      rrdtool \
+      net-tools \
+      git-core \
+      libreadline-dev \
       libedit-dev \
       bison \
       flex \
-      libtool \
-      zlib1g-dev \
       automake
 
-      RUN wget http://launchpadlibrarian.net/121918272/honeyd_1.5c-10ubuntu1_amd64.deb
-      RUN dpkg -i honeyd_1.5c-10ubuntu1_amd64.deb \
-        && rm honeyd_1.5c-10ubuntu1_amd64.deb
-
-        RUN apt-get install -y nmap
-        RUN apt-get install -y rrdtool
+RUN apt-get install -y farpd
+RUN apt-get install -y iputils-ping
+RUN apt-get install -y sudo
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN git clone https://github.com/DataSoft/Honeyd.git
+RUN cd Honeyd \
+  && ./autogen.sh \
+  && ./configure \
+  && make \
+  && make install
 
