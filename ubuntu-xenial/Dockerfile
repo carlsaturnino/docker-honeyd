@@ -21,12 +21,12 @@ RUN apt-get install -y build-essential \
       libedit-dev \
       bison \
       flex \
+      farpd \
+      lftp \
+      iputils-ping \
+      sudo \
       automake
 
-RUN apt-get install -y farpd
-RUN apt-get install -y iputils-ping
-RUN apt-get install -y sudo
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN git clone https://github.com/DataSoft/Honeyd.git
 RUN cd Honeyd \
   && ./autogen.sh \
@@ -34,3 +34,4 @@ RUN cd Honeyd \
   && make \
   && make install
 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
